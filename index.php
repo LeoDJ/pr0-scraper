@@ -4,29 +4,13 @@
 		<link rel="icon" href="http://pr0gramm.com/media/pr0gramm-favicon.png"/>
 
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
-		<script src="loop.js">
-
-			/*$(function(){ getPic(); });
-			function getPic() 
-			{
-    			$('div#output').load('pr0.php');
-    			setTimeout("getPic()",1000);
-			}*/
-
-		</script>
-
-
-
+		<script src="loop.js"></script>
 
 		<meta name="viewport" content="width=device-width">
 	</head>
-	
-	<!--meta http-equiv="refresh" content="2"-->
 
 	<body>
-	<div id="output"></div>
-	<div id="webm"></div>
-		<?php
-		?>
+		<div id="output"></div>
+		<div id="webm"></div>
 	</body>
 </html>

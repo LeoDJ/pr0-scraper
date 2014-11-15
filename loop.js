@@ -9,14 +9,14 @@ function pollIfNewPicture(callback)
  		callback();
  		return;
  	}
- 	setTimeout(function(){ pollIfNewPicture(callback); }, 1000);
+ 	setTimeout(function(){ pollIfNewPicture(callback); }, 5000);
  	});
 }
 
 function getPic()
 {
 	$('div#output').load('pr0_getNewestPic.php');
-	setTimeout(function() { pollIfNewPicture(getPic); }, 1000);
+	setTimeout(function() { pollIfNewPicture(getPic); }, 5000);
 }
 
 $(function() {
