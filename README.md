@@ -7,6 +7,5 @@ Mein erster Versuch mit PHP zu arbeiten.
 
 ToDo:
 
--schöneres Layout
-
+- schöneres Layout
 - new/popular Schalter
