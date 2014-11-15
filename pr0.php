@@ -60,13 +60,15 @@
 		}
 	}
 
-	function showPic($path)
+	function showPic($path,$id)
 	{
 		$webm = strpos($path,"webm");
+		$out = "<a href=\"http://pr0gramm.com/new/".$id."\" target=\"_blank\">";
 		if ($webm !== false) 
 			{
-				return "<video autoplay loop name=\"media\"> \n <source src=\"".$path."\" type=\"video/webm\">\n</video>";
+				$out = $out."<video autoplay loop name=\"media\"> \n <source src=\"".$path."\" type=\"video/webm\">\n</video>";
 				//return "WEBMs werden zur Zeit noch nich unterstützt, sry <br> <a target=\"_blank\" href=\"".$path."\">".$path."</a>";
 			}
-		else return "<img src=".$path.">";
+		else $out = $out."<img src=".$path.">";
+		return $out."</a>";
 	}

@@ -15,7 +15,7 @@ function pollIfNewPicture(callback)
 
 function getPic()
 {
-	$('div#output').load('pr0_getNewestPic.php');
+	$('div#img').load('pr0_getNewestPic.php');
 	setTimeout(function() { pollIfNewPicture(getPic); }, 5000);
 }
 
