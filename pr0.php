@@ -73,17 +73,11 @@
 			$webm = strpos($path,"webm");
 			if ($webm !== false) 
 				{
-					//return "<video autoplay loop name=\"media\"> \n <source src=\"".$path."\" type=\"video/webm\">\n</video>";
-					return "WEBMs werden zur Zeit noch nich unterstützt, sry <br> <a target=\"_blank\" href=\"".$path."\">".$path."</a>";
+					return "<video autoplay loop name=\"media\"> \n <source src=\"".$path."\" type=\"video/webm\">\n</video>";
+					//return "WEBMs werden zur Zeit noch nich unterstützt, sry <br> <a target=\"_blank\" href=\"".$path."\">".$path."</a>";
 				}
 			else return "<img src=".$path.">";
 		}
-
-		//if (newPic("new")!=="")
-		//{	
-			echo showPic(getNewestPic());
-			//echo "<br>".time();
-		//}
 
 	?>
 
