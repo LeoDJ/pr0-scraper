@@ -44,9 +44,9 @@
 
 	function getNewestPic()
 	{
-		return getPr0Pic(getPr0Id("new", 1));
-		//return getPr0Pic("334432");
-		//return getPr0Pic("314418");
+		return getPr0Pic(getPr0Id("new", 1)); 
+		//return getPr0Pic("334432"); //webm
+		//return getPr0Pic("314418"); //gif
 	}
 	
 	function newPic($newPopular)
