@@ -14,9 +14,10 @@
 			<div id="navigation">
 				<?php
 					include 'pr0.php';
+
 					$_SESSION['prevID'] = "";
-					if(isset($_GET['popular'])) $_SESSION['newPop'] = "popular";
-					else $_SESSION['newPop'] = "new";
+					if(isset($_GET['top'])) $_SESSION['newTop'] = "top";
+					else $_SESSION['newTop'] = "new";
 					getNav();
 				?>
 			</div>

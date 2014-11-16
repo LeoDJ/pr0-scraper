@@ -1,7 +1,7 @@
 <?php
 	session_start();
-	
-	function getHTML($url)
+
+	function get_data($url)
 	{
 		$ch = curl_init();
 		$timeout = 5; // 0 wenn kein Timeout
@@ -13,55 +13,48 @@
 		return $file_content;
 	}
 
-	function getPr0Id($count)
+	function getNewestPost()
 	{
-		if ($count > 60) $count = 60;
-		elseif ($count < 1) $count = 1;
+		$url = "http://pr0gramm.com/api/items/get";
+		if($_SESSION['newTop']=="top") $url = $url."?promoted=1";
 
-		//es muss eine neue Zahl dahinter gestellt werden, da es sonst nur alte Bilder lädt...
-		$html = getHTML('http://pr0gramm.com/static/'.$_SESSION['newPop'].'/'.time());
-		preg_match_all('/\/.*"></', $html, $output, PREG_SET_ORDER);
-		
-		$imgs = call_user_func_array('array_merge', $output);
-		$ids = str_replace(array("/static/","\"><"),"",$imgs);
-		
-		$out = array();
-		for ($i = 0; $i < $count; $i++) 
-			array_push($out, $ids[$i]);
-		if ($count == 1) return $out[0];
-		else return $out;
+		$json = json_decode(get_data($url));
+
+		return $json->items[0];
+
 	}
 
-	function getPr0Pic($picID)
+	function getNewestId()
 	{
-		$picHTML = getHTML('http://pr0gramm.com/static/'.$picID);
-		preg_match_all('/="\/data.*" /', $picHTML, $output2);
-
-		$src = "http://pr0gramm.com".str_replace(array("=","\""), "", $output2[0][0]);
-		return $src;
+		$post = getNewestPost();
+		return $post->id;
 	}
 
 	function getNewestPic()
 	{
-		return getPr0Pic(getPr0Id(1)); 
-		//return getPr0Pic("334432"); //test webm
-		//return getPr0Pic("314418"); //test gif
-		//return getPr0Pic("389161"); //test bigPic
+		$post = getNewestPost();
+		$rawURL = "http://img.pr0gramm.com/";
+		$img = $post->image;
+		$full = $post->fullsize;
+		if ($full !== "") return $rawURL.$full;
+		else return $rawURL.$img;
 	}
-	
-	function newPic()
+
+	function isNewPic()
 	{
-		$curID = getPr0Id(1);
-		if ($curID == $_SESSION['prevID']) return "";
+		$curID = getNewestId();
+		if ($curID == $_SESSION['prevID']) return false;
 		else
 		{
 			$_SESSION['prevID'] = $curID;
-			return $curID;
+			return true;
 		}
 	}
 
-	function showPic($path,$id)
+	function showNewestPic()
 	{
+		$id = getNewestId();
+		$path = getNewestPic();
 		$webm = strpos($path,"webm");
 		$out = "<a href=\"http://pr0gramm.com/new/".$id."\" target=\"_blank\">";
 		if ($webm !== false) 
@@ -75,6 +68,6 @@
 
 	function getNav()
 	{
-		if ($_SESSION['newPop'] == "new") echo "<a href='index.php?new' style=\"color:EE4D2E; text-decoration:none;\">neu</a> &nbsp <a href='index.php?popular' style=\"color:AAAAAA; text-decoration:none;\">beliebt</a>";
-		else                              echo "<a href='index.php?new' style=\"color:AAAAAA; text-decoration:none;\">neu</a> &nbsp <a href='index.php?popular' style=\"color:EE4D2E; text-decoration:none;\">beliebt</a>";
+		if ($_SESSION['newTop'] == "new") echo "<a href='index.php?new' style=\"color:EE4D2E; text-decoration:none;\">neu</a> &nbsp <a href='index.php?top' style=\"color:AAAAAA; text-decoration:none;\">beliebt</a>";
+		else                              echo "<a href='index.php?new' style=\"color:AAAAAA; text-decoration:none;\">neu</a> &nbsp <a href='index.php?top' style=\"color:EE4D2E; text-decoration:none;\">beliebt</a>";
 	}
