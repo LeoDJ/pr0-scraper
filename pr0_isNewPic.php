@@ -1,4 +1,4 @@
 <?php
 	include 'pr0.php';
-	if (newPic("new") !== "") echo "true";
+	if (newPic() !== "") echo "true";
 	else echo "false";

@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	$_SESSION['prevID'] = "";
+	$_SESSION['newPopular'] = "new";
 	function getHTML($url)
 	{
 		$ch = curl_init();
@@ -13,13 +14,13 @@
 		return $file_content;
 	}
 
-	function getPr0Id($newPopular, $count)
+	function getPr0Id($count)
 	{
 		if ($count > 60) $count = 60;
 		elseif ($count < 1) $count = 1;
 
 		//es muss eine neue Zahl dahinter gestellt werden, da es sonst nur alte Bilder lädt...
-		$html = getHTML('http://pr0gramm.com/static/'.$newPopular.'/'.time());
+		$html = getHTML('http://pr0gramm.com/static/'.$_SESSION['newPopular'].'/'.time());
 		preg_match_all('/\/.*"></', $html, $output, PREG_SET_ORDER);
 		
 		$imgs = call_user_func_array('array_merge', $output);
@@ -44,14 +45,15 @@
 
 	function getNewestPic()
 	{
-		return getPr0Pic(getPr0Id("new", 1)); 
-		//return getPr0Pic("334432"); //webm
-		//return getPr0Pic("314418"); //gif
+		return getPr0Pic(getPr0Id(1)); 
+		//return getPr0Pic("334432"); //test webm
+		//return getPr0Pic("314418"); //test gif
+		//return getPr0Pic("389161"); //test bigPic
 	}
 	
-	function newPic($newPopular)
+	function newPic()
 	{
-		$curID = getPr0Id($newPopular ,1);
+		$curID = getPr0Id(1);
 		if ($curID == $_SESSION['prevID']) return "";
 		else
 		{
@@ -66,9 +68,9 @@
 		$out = "<a href=\"http://pr0gramm.com/new/".$id."\" target=\"_blank\">";
 		if ($webm !== false) 
 			{
-				$out = $out."<video autoplay loop name=\"media\"> \n <source src=\"".$path."\" type=\"video/webm\">\n</video>";
+				$out = $out."<video autoplay loop preload=\"auto\"  style=\"max-height: 95vh; max-width: 95vh;\"> \n <source src=\"".$path."\" type=\"video/webm\">\nDu hast 'nen scheiß Brauser, besorg dir Chrome!\n</video>";
 				//return "WEBMs werden zur Zeit noch nich unterstützt, sry <br> <a target=\"_blank\" href=\"".$path."\">".$path."</a>";
 			}
-		else $out = $out."<img src=".$path.">";
+		else $out = $out."<img src=".$path." style=\"max-height: 95vh; max-width: 95vh;\">";
 		return $out."</a>";
 	}

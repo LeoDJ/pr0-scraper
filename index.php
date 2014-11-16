@@ -7,7 +7,9 @@
 		<script src="loop.js"></script>
 	</head>
 
-	<body bgcolor="#161618">
+	<body bgcolor="#161618" text="white" style="font-family: sans-serif;">
+		<!--div id="button" width="50%" style="display:inline">new/popular</div>
+		<div id="uploader" width="50%" style="display:inline">uploaded by: coming soon</div-->
 		<div id="img" align='center'></div>
 	</body>
 </html>
