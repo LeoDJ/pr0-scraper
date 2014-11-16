@@ -1,6 +1,5 @@
 <?php
 	session_start();
-	$_SESSION['prevID'] = "";
 	
 	function getHTML($url)
 	{
