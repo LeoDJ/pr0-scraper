@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	$_SESSION['prevID'] = "";
-	$_SESSION['newPopular'] = "new";
+	
 	function getHTML($url)
 	{
 		$ch = curl_init();
@@ -20,7 +20,7 @@
 		elseif ($count < 1) $count = 1;
 
 		//es muss eine neue Zahl dahinter gestellt werden, da es sonst nur alte Bilder lädt...
-		$html = getHTML('http://pr0gramm.com/static/'.$_SESSION['newPopular'].'/'.time());
+		$html = getHTML('http://pr0gramm.com/static/'.$_SESSION['newPop'].'/'.time());
 		preg_match_all('/\/.*"></', $html, $output, PREG_SET_ORDER);
 		
 		$imgs = call_user_func_array('array_merge', $output);
@@ -29,7 +29,6 @@
 		$out = array();
 		for ($i = 0; $i < $count; $i++) 
 			array_push($out, $ids[$i]);
-		//echo "\n<br>".time();
 		if ($count == 1) return $out[0];
 		else return $out;
 	}
@@ -68,9 +67,15 @@
 		$out = "<a href=\"http://pr0gramm.com/new/".$id."\" target=\"_blank\">";
 		if ($webm !== false) 
 			{
-				$out = $out."<video autoplay loop preload=\"auto\"  style=\"max-height: 95vh; max-width: 95vh;\"> \n <source src=\"".$path."\" type=\"video/webm\">\nDu hast 'nen scheiß Brauser, besorg dir Chrome!\n</video>";
+				$out = $out."<video autoplay loop preload=\"auto\"  style=\"max-height: 90vh; max-width: 90vh;\"> \n <source src=\"".$path."\" type=\"video/webm\">\nDu hast 'nen scheiß Brauser, besorg dir Chrome!\n</video>";
 				//return "WEBMs werden zur Zeit noch nich unterstützt, sry <br> <a target=\"_blank\" href=\"".$path."\">".$path."</a>";
 			}
-		else $out = $out."<img src=".$path." style=\"max-height: 95vh; max-width: 95vh;\">";
+		else $out = $out."<img src=".$path." style=\"max-height: 90vh; max-width: 90vh;\">";
 		return $out."</a>";
+	}
+
+	function getNav()
+	{
+		if ($_SESSION['newPop'] == "new") echo "<a href='index.php?new' style=\"color:EE4D2E; text-decoration:none;\">neu</a> &nbsp <a href='index.php?popular' style=\"color:AAAAAA; text-decoration:none;\">beliebt</a>";
+		else                              echo "<a href='index.php?new' style=\"color:AAAAAA; text-decoration:none;\">neu</a> &nbsp <a href='index.php?popular' style=\"color:EE4D2E; text-decoration:none;\">beliebt</a>";
 	}

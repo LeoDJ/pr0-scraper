@@ -5,11 +5,23 @@
 
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script src="loop.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 
-	<body bgcolor="#161618" text="white" style="font-family: sans-serif;">
-		<!--div id="button" width="50%" style="display:inline">new/popular</div>
-		<div id="uploader" width="50%" style="display:inline">uploaded by: coming soon</div-->
+	<body bgcolor="#161618" text="white">
+		<div id="navbar">
+			<div id="logo"> <img id="pr0gramm-logo" src="pr0gramm_leanback.png"> </div>		
+			<div id="navigation">
+				<?php
+					include 'pr0.php';
+					if(isset($_GET['popular'])) $_SESSION['newPop'] = "popular";
+					else $_SESSION['newPop'] = "new";
+					getNav();
+				?>
+			</div>
+			<!--div id="uploader" style="float:right">uploaded by: coming soon</div-->
+		</div>
+		
 		<div id="img" align='center'></div>
 	</body>
 </html>
